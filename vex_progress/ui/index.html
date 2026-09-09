@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="color-scheme"
+        content="dark"
+    >
+
+    <title>VEX Progress</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+</head>
+
+<body>
+    <main
+        id="progress-root"
+        class="progress-root"
+        aria-live="polite"
+        aria-hidden="true"
+    >
+        <section
+            id="progress-panel"
+            class="progress-panel"
+        >
+            <div
+                id="ring-layout"
+                class="progress-ring-layout"
+            >
+                <svg
+                    id="progress-ring"
+                    class="progress-ring"
+                    viewBox="0 0 120 120"
+                    role="presentation"
+                    aria-hidden="true"
+                >
+                    <circle
+                        id="ring-track"
+                        class="progress-ring__track"
+                        cx="60"
+                        cy="60"
+                        r="52"
+                    />
+
+                    <circle
+                        id="ring-value"
+                        class="progress-ring__value"
+                        cx="60"
+                        cy="60"
+                        r="52"
+                    />
+                </svg>
+
+                <div class="progress-ring__center">
+                    <span
+                        id="ring-percent"
+                        class="progress-percent"
+                    >
+                        0%
+                    </span>
+                </div>
+            </div>
+
+            <div
+                id="bar-layout"
+                class="progress-bar-layout"
+                hidden
+            >
+                <div class="progress-bar">
+                    <div
+                        id="bar-value"
+                        class="progress-bar__value"
+                    ></div>
+                </div>
+            </div>
+
+            <div class="progress-copy">
+                <p
+                    id="progress-label"
+                    class="progress-label"
+                >
+                    Working...
+                </p>
+
+                <p
+                    id="cancel-hint"
+                    class="cancel-hint"
+                    hidden
+                >
+                    Backspace / Esc to cancel
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

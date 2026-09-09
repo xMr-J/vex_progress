@@ -1,0 +1,266 @@
+:root {
+    --vex-progress-track: rgba(33, 25, 18, 0.72);
+    --vex-progress-value: #c6a36a;
+    --vex-progress-glow: rgba(198, 163, 106, 0.3);
+
+    --vex-panel-bg: rgba(15, 12, 9, 0.84);
+    --vex-panel-border: rgba(198, 163, 106, 0.25);
+
+    --vex-text-primary: #eee0c5;
+    --vex-text-muted: rgba(238, 224, 197, 0.62);
+
+    --vex-serif: Georgia, "Times New Roman", serif;
+    --vex-sans: Arial, Helvetica, sans-serif;
+
+    --ring-size: 112px;
+    --ring-stroke: 7px;
+
+    --bar-width: 360px;
+    --bar-height: 8px;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+
+    margin: 0;
+    padding: 0;
+
+    overflow: hidden;
+
+    background: transparent;
+
+    user-select: none;
+    pointer-events: none;
+}
+
+body {
+    font-family: var(--vex-sans);
+}
+
+.progress-root {
+    position: fixed;
+
+    inset: 0;
+
+    display: flex;
+
+    align-items: flex-end;
+    justify-content: center;
+
+    padding: 0 24px 7vh;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transform: translateY(8px);
+
+    transition:
+        opacity 140ms ease,
+        transform 140ms ease,
+        visibility 140ms linear;
+}
+
+.progress-root.is-visible {
+    opacity: 1;
+    visibility: visible;
+
+    transform: translateY(0);
+}
+
+.progress-panel {
+    min-width: 210px;
+    max-width: min(460px, 92vw);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 16px 20px 14px;
+
+    border: 1px solid var(--vex-panel-border);
+    border-radius: 8px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(44, 34, 24, 0.16),
+            rgba(8, 7, 6, 0.12)
+        ),
+        var(--vex-panel-bg);
+
+    box-shadow:
+        0 14px 40px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.025);
+}
+
+.progress-ring-layout {
+    position: relative;
+
+    width: var(--ring-size);
+    height: var(--ring-size);
+}
+
+.progress-ring {
+    width: 100%;
+    height: 100%;
+
+    transform: rotate(-90deg);
+
+    filter:
+        drop-shadow(
+            0 0 8px
+            var(--vex-progress-glow)
+        );
+}
+
+.progress-ring__track,
+.progress-ring__value {
+    fill: none;
+
+    stroke-width: var(--ring-stroke);
+
+    vector-effect: non-scaling-stroke;
+}
+
+.progress-ring__track {
+    stroke: var(--vex-progress-track);
+}
+
+.progress-ring__value {
+    stroke: var(--vex-progress-value);
+
+    stroke-linecap: round;
+
+    stroke-dasharray: 326.7256;
+    stroke-dashoffset: 326.7256;
+
+    transition: stroke-dashoffset 40ms linear;
+}
+
+.progress-ring__center {
+    position: absolute;
+    inset: 0;
+
+    display: grid;
+    place-items: center;
+}
+
+.progress-percent {
+    color: var(--vex-text-primary);
+
+    font-family: var(--vex-serif);
+    font-size: 18px;
+    font-weight: 600;
+
+    letter-spacing: 0.05em;
+
+    text-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.85);
+}
+
+.progress-bar-layout {
+    width: min(var(--bar-width), 82vw);
+}
+
+.progress-bar {
+    width: 100%;
+    height: var(--bar-height);
+
+    overflow: hidden;
+
+    border: 1px solid rgba(198, 163, 106, 0.18);
+    border-radius: 999px;
+
+    background: var(--vex-progress-track);
+
+    box-shadow:
+        inset 0 1px 3px rgba(0, 0, 0, 0.72);
+}
+
+.progress-bar__value {
+    width: 0%;
+    height: 100%;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(171, 132, 75, 0.95),
+            var(--vex-progress-value)
+        );
+
+    box-shadow:
+        0 0 12px
+        var(--vex-progress-glow);
+
+    transition: width 40ms linear;
+}
+
+.progress-copy {
+    text-align: center;
+}
+
+.progress-label {
+    max-width: 390px;
+
+    margin: 0;
+
+    overflow: hidden;
+
+    color: var(--vex-text-primary);
+
+    font-family: var(--vex-serif);
+    font-size: 16px;
+    font-weight: 600;
+
+    letter-spacing: 0.035em;
+
+    line-height: 1.35;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    text-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.9);
+}
+
+.cancel-hint {
+    margin: 5px 0 0;
+
+    color: var(--vex-text-muted);
+
+    font-family: var(--vex-sans);
+    font-size: 10px;
+    font-weight: 600;
+
+    letter-spacing: 0.13em;
+
+    text-transform: uppercase;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+@media (max-width: 700px) {
+    .progress-root {
+        padding-bottom: 5vh;
+    }
+
+    .progress-panel {
+        max-width: 90vw;
+
+        padding-inline: 16px;
+    }
+}
